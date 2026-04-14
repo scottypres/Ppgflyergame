@@ -60,6 +60,11 @@ body {
   overflow-x: hidden;
 }
 
+/* Ensure hidden attribute always wins over display rules */
+[hidden] {
+  display: none !important;
+}
+
 #game {
   width: 100%;
   min-height: 100vh;
