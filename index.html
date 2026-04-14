@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paramotor Hustle</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game">
+
+    <!-- ═══ MAIN MENU ═══ -->
+    <section data-screen="menu" class="screen">
+      <div class="menu-content">
+        <h1 class="game-title">Paramotor Hustle</h1>
+        <p class="game-subtitle">Run tandem flights. Build your reputation. Make that money.</p>
+        <div class="menu-buttons">
+          <button class="btn btn-primary btn-large" data-action="new-game">New Game</button>
+          <button class="btn btn-secondary btn-large" data-action="continue" hidden>Continue</button>
+          <button class="btn btn-ghost" data-action="how-to-play">How to Play</button>
+        </div>
+        <div class="run-length-picker">
+          <label>Season Length:
+            <select id="run-length">
+              <option value="15">15 Days (Short)</option>
+              <option value="20" selected>20 Days (Standard)</option>
+              <option value="30">30 Days (Marathon)</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ HOW TO PLAY ═══ -->
+    <section data-screen="how-to-play" class="screen">
+      <div class="info-panel">
+        <h2>How to Play</h2>
+        <div class="info-content">
+          <div class="info-section">
+            <h3>The Goal</h3>
+            <p>You're a tandem paramotor pilot building your business over a season. Earn money, build your reputation, and upgrade your gear.</p>
+          </div>
+          <div class="info-section">
+            <h3>Each Day</h3>
+            <p>Choose one of three actions:</p>
+            <ul>
+              <li><strong>Fly Tandems</strong> — Customers will approach you. Set your price and watch them decide. Good weather and reputation bring more customers.</li>
+              <li><strong>Visit Market</strong> — Travel to a fly-in market. Buy fuel, upgrade your wing, motor, or accessories. Prices change every visit.</li>
+              <li><strong>Rest</strong> — Take the day off. Your reputation drops slightly as people forget about you.</li>
+            </ul>
+          </div>
+          <div class="info-section">
+            <h3>Tips</h3>
+            <ul>
+              <li>Watch the weather — calm, smooth days are best for flying.</li>
+              <li>Don't run out of fuel!</li>
+              <li>Better gear means happier passengers and more tips.</li>
+              <li>Balance flying and shopping for the best score.</li>
+            </ul>
+          </div>
+        </div>
+        <button class="btn btn-secondary" data-action="back-to-menu">Back to Menu</button>
+      </div>
+    </section>
+
+    <!-- ═══ DAILY OVERVIEW ═══ -->
+    <section data-screen="daily-overview" class="screen">
+      <div class="daily-layout">
+        <div class="daily-header">
+          <h2>Day <span id="day-num">1</span> of <span id="day-total">20</span></h2>
+        </div>
+
+        <div class="daily-panels">
+          <div class="panel panel-weather">
+            <h3>Weather</h3>
+            <div class="weather-display">
+              <div class="weather-row">
+                <span class="weather-label">Wind:</span>
+                <span id="weather-wind">🍃 Calm</span>
+              </div>
+              <div class="weather-row">
+                <span class="weather-label">Air:</span>
+                <span id="weather-air">☀️ Smooth</span>
+              </div>
+            </div>
+            <div id="weather-warning" class="weather-warning" hidden></div>
+          </div>
+
+          <div class="panel panel-stats">
+            <h3>Stats</h3>
+            <div class="stat-row">
+              <span class="stat-label">Cash:</span>
+              <span id="stat-cash" class="stat-value">$500</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Reputation:</span>
+              <span id="stat-rep" class="stat-value">50</span>
+              <span id="rep-label" class="stat-sublabel"></span>
+            </div>
+            <div class="rep-bar"><div class="rep-bar-fill" style="width: 50%"></div></div>
+            <div class="stat-row">
+              <span class="stat-label">Fuel:</span>
+              <span id="stat-fuel" class="stat-value">10 gal</span>
+            </div>
+            <div id="fuel-warning" class="fuel-warning" hidden>Fuel is running low.</div>
+          </div>
+
+          <div class="panel panel-gear">
+            <h3>Gear</h3>
+            <div class="gear-row"><span class="gear-label">Wing:</span><span id="gear-wing">Rental Wing</span></div>
+            <div class="gear-row"><span class="gear-label">Motor:</span><span id="gear-motor">Old Paramotor</span></div>
+            <div class="gear-row"><span class="gear-label">Accessory:</span><span id="gear-accessory">None</span></div>
+          </div>
+        </div>
+
+        <div class="daily-actions">
+          <h3>What will you do today?</h3>
+          <div class="action-buttons">
+            <button class="btn btn-primary btn-action" data-action="tandem">
+              <span class="btn-icon">🪂</span>
+              <span class="btn-label">Fly Tandems</span>
+              <span class="btn-desc">Run flights, earn money</span>
+            </button>
+            <button class="btn btn-secondary btn-action" data-action="market">
+              <span class="btn-icon">🛒</span>
+              <span class="btn-label">Visit Market</span>
+              <span class="btn-desc">Buy fuel & gear</span>
+            </button>
+            <button class="btn btn-ghost btn-action" data-action="rest">
+              <span class="btn-icon">😴</span>
+              <span class="btn-label">Rest</span>
+              <span class="btn-desc">Take the day off</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ TANDEM DAY ═══ -->
+    <section data-screen="tandem" class="screen">
+      <div class="tandem-layout">
+        <!-- Animated scene -->
+        <div class="scene">
+          <div class="scene__sky">
+            <div class="cloud cloud-1"></div>
+            <div class="cloud cloud-2"></div>
+            <div class="cloud cloud-3"></div>
+          </div>
+          <div class="scene__mountains"></div>
+          <div class="scene__field"></div>
+          <div class="scene__table">
+            <div class="table-sign">TANDEM FLIGHTS</div>
+          </div>
+          <div class="scene__customer-lane"></div>
+        </div>
+
+        <!-- HUD overlay -->
+        <div class="tandem-hud">
+          <div class="hud-stat"><span>Cash:</span><span id="hud-cash">$500</span></div>
+          <div class="hud-stat"><span>Fuel:</span><span id="hud-fuel">10 gal</span></div>
+          <div class="hud-stat"><span>Flights:</span><span id="hud-flights">0</span></div>
+          <div class="hud-stat"><span>Earned:</span><span id="hud-earnings">$0</span></div>
+          <div class="hud-stat"><span>Rep:</span><span id="hud-rep">50</span></div>
+        </div>
+
+        <!-- Message overlay -->
+        <div class="tandem-message" hidden></div>
+
+        <!-- Pricing dialog -->
+        <div class="tandem-dialog" hidden>
+          <div class="dialog-card">
+            <div class="dialog-counter">Customer 1 of 4</div>
+            <div class="dialog-customer-name">Alex</div>
+            <div class="dialog-customer-type">Nervous</div>
+            <p class="dialog-prompt">Set your price:</p>
+            <div class="dialog-buttons">
+              <button class="btn btn-success" data-price="low">Budget<br>$80</button>
+              <button class="btn btn-primary" data-price="medium">Standard<br>$150</button>
+              <button class="btn btn-warning" data-price="high">Premium<br>$250</button>
+              <button class="btn btn-ghost" data-turn-away>Turn Away</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Flight result -->
+        <div class="tandem-result" hidden></div>
+      </div>
+    </section>
+
+    <!-- ═══ MARKET ═══ -->
+    <section data-screen="market" class="screen">
+      <div class="market-layout">
+        <div class="market-header">
+          <h2>Fly-In Market</h2>
+          <div class="market-stats">
+            <span>Cash: <strong id="market-cash">$500</strong></span>
+            <span>Fuel: <strong id="market-fuel">10 / 20 gal</strong></span>
+          </div>
+        </div>
+
+        <div class="market-sections">
+          <div class="market-section">
+            <h3>Fuel</h3>
+            <div id="fuel-listings"></div>
+          </div>
+          <div class="market-section">
+            <h3>Wings</h3>
+            <div id="wing-listings"></div>
+          </div>
+          <div class="market-section">
+            <h3>Motors</h3>
+            <div id="motor-listings"></div>
+          </div>
+          <div class="market-section">
+            <h3>Accessories</h3>
+            <div id="accessory-listings"></div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-large" data-action="leave-market">Done Shopping</button>
+      </div>
+    </section>
+
+    <!-- ═══ DAY SUMMARY ═══ -->
+    <section data-screen="day-summary" class="screen">
+      <div class="summary-layout">
+        <h2>Day Summary</h2>
+        <div class="summary-details"></div>
+        <button class="btn btn-primary btn-large" data-action="next-day">Next Day</button>
+      </div>
+    </section>
+
+    <!-- ═══ END GAME ═══ -->
+    <section data-screen="end-game" class="screen">
+      <div class="endgame-layout">
+        <h2>Season Over!</h2>
+        <div class="final-score"></div>
+        <div class="final-stats"></div>
+        <button class="btn btn-primary btn-large" data-action="play-again">Play Again</button>
+      </div>
+    </section>
+
+    <!-- ═══ EVENT MODAL (global overlay) ═══ -->
+    <div id="event-modal" class="modal" hidden>
+      <div class="modal-card">
+        <div class="event-icon">!</div>
+        <h3 class="event-title">Event Title</h3>
+        <p class="event-description">Event description goes here.</p>
+        <div class="event-effects"></div>
+        <button class="btn btn-primary" data-action="dismiss-event">Got it</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
